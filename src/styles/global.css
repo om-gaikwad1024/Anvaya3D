@@ -1,0 +1,251 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html,body{
+  overflow: hidden;
+}
+
+canvas.webgl{
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+#navigation {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+}
+
+#navigation button {
+  margin: 5px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#navigation button:hover {
+  background-color: #0056b3;
+}
+
+
+
+
+/* Controllers */
+#key-display-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  z-index: 1000;
+}
+
+.key-display {
+  width: 40px;
+  height: 40px;
+  /* background-color: #f5f5f5;  Neutral light background */
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #2ecc71; /* Green aesthetic color */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 45px;
+  border: 2px solid #2ecc71;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: scale 0.05s ease, background-color 0.2s ease, color 0.2s ease;
+  user-select: none;
+}
+
+.key-display.active {
+scale: 1.1;
+  background-color: #2ecc71;
+  color: #ffffff; /* White text when active */
+  box-shadow: none; /* Remove shadow for a pressed look */
+}
+
+.control-w {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.control-a {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.control-s {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.control-d {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.control-shift {
+  display: none;
+}
+
+
+  /* Control Menu */
+  .control-menu {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.control-menu i {
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+.control-menu i:hover {
+    color: #007BFF;
+}
+
+/* Glassmorphism Info Card */
+.info-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+    color: #333;
+    z-index: 999;
+    display: none;
+}
+
+.info-card .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.info-card .close-btn:hover {
+    background: #d32f2f;
+}
+
+/* Settings Panel */
+.settings-panel {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 1000;
+    display: none;
+}
+
+.settings-panel label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.settings-panel input[type="checkbox"] {
+    cursor: pointer;
+}
+
+/* Key Display Container (Target for Toggle) */
+.key-display-container {
+    margin: 20px;
+    padding: 20px;
+    background: #e9ecef;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: block;
+}
+
+
+
+
+
+/* plant info */
+
+/* Glassmorphism Info Card */
+.info-card2 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-align: center;
+  color: #333;
+  z-index: 999;
+  display: none;
+}
+
+.info-card2 .close-btn .info-close2{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.info-card2 .close-btn:hover {
+  background: #d32f2f;
+}

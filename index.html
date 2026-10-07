@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/x-icon" href="/logo.ico">
+    <title>Anvaya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/src/styles/global.css">
+  </head>
+  <body>
+    <canvas class="webgl"></canvas>
+
+
+    <div class="control-menu">
+      <i class="fa-solid fa-circle-info" id="info-btn"></i>
+      <i class="fa-solid fa-gear" id="settings-btn"></i>
+      <i class="fa-solid fa-robot" id="ai-btn"></i>
+  </div>
+
+
+    <!-- Info Card -->
+    <div class="info-card" id="info-card">
+      <button class="close-btn" id="info-close">&times;</button>
+      <h2>Project Info</h2>
+    
+      <h3>Overview</h3>
+      <p>
+        This project demonstrates a settings panel with toggle functionality alongside a glass morphism info card design. 
+        It's a modern approach to creating dynamic and visually appealing user interfaces.
+      </p>
+    
+      <h3>Glass Morphism Design</h3>
+      <p>
+        Glass morphism is a design trend characterized by blurred backgrounds, transparency, and a frosted glass effect. It creates a sense of depth and elegance, making the UI feel immersive and contemporary. In this project, you can interact with different UI elements that showcase this design technique.
+      </p>
+      
+      <h3>Interactive Features</h3>
+      <p>
+        The settings panel allows you to toggle various elements, adjusting their visibility or behavior. These toggles represent common settings options in many modern web applications, helping you understand how these controls work while also enhancing the look and feel of the interface.
+      </p>
+    
+      <h3>UI/UX Learning</h3>
+      <p>
+        This project is not only an exploration of glass morphism but also an excellent learning tool for UI/UX design. By interacting with the settings panel and observing the effects, you'll get insights into how modern web design principles are applied in practice. Whether you're a beginner or an experienced developer, this project can help you level up your design skills.
+      </p>
+    
+      <h3>Customization</h3>
+      <p>
+        Feel free to explore and customize the visibility of various UI elements! You can experiment with toggles to hide or show different components, giving you the flexibility to control how the UI behaves. 
+        This customization enhances the interactivity of the interface, making it more engaging and personalized.
+      </p>
+    </div>
+    
+
+       <!-- Info Card -->
+       <div class="info-card2" id="info-card2">
+        <button class="close-btn2" id="info-close2">&times;</button>
+        <h4>Name</h4><p class="plant-name"></p>
+        <h4>scientific Name</h4><p class="scientific-name"></p>
+        <h4>Description</h4><p class="description"></p>
+        <h4>Category</h4><p class="category"></p>
+        <h4>Medicinal uses and Benefits</h4><p class="medicalUsesAndBenefits"></p>
+      
+      </div>
+
+  <!-- Settings Panel -->
+  <div class="settings-panel" id="settings-panel">
+      <label>
+          <input type="checkbox" id="toggle-key-display" checked>
+          Show/Hide Key Display
+      </label>
+
+
+  </div>
+
+  <!-- <div class="ai-recognition">
+    <div id="upload-form">
+      <h1>Plant Identifier</h1>
+      <form id="imageForm">
+          <input type="file" id="image" name="image" accept="image/*" required><br><br>
+          <button type="submit">Upload</button>
+      </form>
+      <button id="capture">Capture from Camera</button>
+      <video id="camera" width="300" height="300" autoplay hidden></video>
+      <canvas id="snapshot" width="224" height="224" hidden></canvas>
+      <div id="result"></div>
+  </div>
+
+  <script>
+      const captureButton = document.getElementById('capture');
+      const camera = document.getElementById('camera');
+      const snapshot = document.getElementById('snapshot');
+      const imageForm = document.getElementById('imageForm');
+
+      // Event listener for the Capture button
+      captureButton.addEventListener('click', () => {
+          camera.hidden = false;
+          navigator.mediaDevices.getUserMedia({ video: true })
+              .then((stream) => {
+                  camera.srcObject = stream;
+                  camera.play();
+              })
+              .catch((err) => {
+                  alert('Camera access denied');
+                  console.error(err);
+              });
+      });
+
+      // Event listener for capturing an image from the video stream
+      camera.addEventListener('click', () => {
+          // Set canvas dimensions to 224x224
+          snapshot.width = 224;
+          snapshot.height = 224;
+
+          // Draw video frame onto canvas and resize it
+          const context = snapshot.getContext('2d');
+          context.drawImage(camera, 0, 0, 224, 224); // Resize the image to 224x224
+
+          snapshot.hidden = false;
+
+          // Convert canvas to blob
+          snapshot.toBlob((blob) => {
+              if (blob) {
+                  const formData = new FormData();
+                  formData.append('image', blob, 'capture.png');
+                  fetch('/upload', { method: 'POST', body: formData })
+                      .then((response) => response.json())
+                      .then((result) => {
+                          camera.hidden = true;
+                          document.getElementById('result').textContent = Prediction: ${result.label}, Confidence: ${result.confidence};
+                      })
+                      .catch((err) => {
+                          console.error('Error uploading image:', err);
+                          document.getElementById('result').textContent = 'Error processing the image from the camera.';
+                      });
+              } else {
+                  console.error('Error capturing image from camera.');
+                  document.getElementById('result').textContent = 'Error capturing image.';
+              }
+          });
+      });
+
+      // // Event listener for file upload form
+      // imageForm.addEventListener('submit', async (e) => {
+      //     e.preventDefault();
+      //     const formData = new FormData(imageForm);
+      //     const response = await fetch('/upload', { method: 'POST', body: formData });
+      //     const result = await response.json();
+      //     if (response.ok) {
+      //         document.getElementById('result').textContent = Prediction: ${result.label}, Confidence: ${result.confidence};
+      //     } else {
+      //         document.getElementById('result').textContent = Error: ${result.error};
+      //     }
+      // });
+  </script>
+
+  </div> -->
+
+  <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
